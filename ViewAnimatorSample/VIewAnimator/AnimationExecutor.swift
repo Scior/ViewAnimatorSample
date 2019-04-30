@@ -12,24 +12,26 @@ final class AnimationExecutor {
     let resolvingAnimation: ResolvingAnimation?
     let delay: TimeInterval?
     let duration: TimeInterval
+    var options: UIView.AnimationOptions? = nil
     
-    init(resolvingAnimation: ResolvingAnimation?, duration: TimeInterval, delay: TimeInterval? = nil) {
+    init(resolvingAnimation: ResolvingAnimation?, duration: TimeInterval, delay: TimeInterval? = nil, options: UIView.AnimationOptions?) {
         self.resolvingAnimation = resolvingAnimation
         self.duration = duration
         self.delay = delay
+        self.options = options
     }
     
-    func animate(options: UIView.AnimationOptions = [], handler: @escaping AnimationHandler) -> AnimationBuilder {
-        let resolving: (@escaping AnimationHandler) -> Void = { [resolvingAnimation, duration, delay] completion in
+    func animate(handler: @escaping AnimationHandler) -> AnimationBuilder {
+        let resolving: (@escaping AnimationHandler) -> Void = { [duration, delay, options] completion in
             let animation = { UIView.animate(
                 withDuration: duration,
                 delay: delay ?? TimeInterval.zero,
-                options: options,
+                options: options ?? [],
                 animations: handler,
-                completion:{ _ in completion() }
+                completion: { _ in completion() }
             )}
             
-            if let resolvingAnimation = resolvingAnimation {
+            if let resolvingAnimation = self.resolvingAnimation {
                 resolvingAnimation(animation)
             } else {
                 animation()

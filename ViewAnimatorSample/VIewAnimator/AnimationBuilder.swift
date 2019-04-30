@@ -6,10 +6,11 @@
 //  Copyright © 2019 Suita Fujino. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 final class AnimationBuilder {
     var delay: TimeInterval? = nil
+    var options: UIView.AnimationOptions? = nil
     let resolvingAnimation: ResolvingAnimation?
     
     init(resolvingAnimation: ResolvingAnimation?) {
@@ -22,7 +23,12 @@ final class AnimationBuilder {
     }
     
     func duration(_ value: TimeInterval) -> AnimationExecutor {
-        return AnimationExecutor(resolvingAnimation: resolvingAnimation, duration: value, delay: delay)
+        return AnimationExecutor(resolvingAnimation: resolvingAnimation, duration: value, delay: delay, options: options)
+    }
+    
+    func options(_ value: UIView.AnimationOptions) -> AnimationBuilder {
+        options = value
+        return self
     }
     
     func resolve() {

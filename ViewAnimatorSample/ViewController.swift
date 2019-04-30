@@ -41,25 +41,7 @@ class ViewController: UIViewController {
             .animate {
                 self.subview.transform = self.subview.transform.translatedBy(x: -200.0, y: 0)
             }
-            .duration(0.8)
-            .animate {
-                self.subview.backgroundColor = UIColor.green
-                self.subview.transform = self.subview.transform.translatedBy(x: 0, y: 200.0)
-            }
-            .duration(0.8)
-            .animate {
-                self.subview.transform = self.subview.transform.translatedBy(x: 200.0, y: 0)
-            }
-            .duration(0.8)
-            .animate {
-                self.subview.transform = self.subview.transform.translatedBy(x: 0, y: -200.0)
-            }
-            .duration(0.8)
-            .animate {
-                self.subview.transform = self.subview.transform.translatedBy(x: -200.0, y: 0)
-            }
             .resolve()
-        
     }
 
 
